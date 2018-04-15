@@ -42,7 +42,7 @@ func (repo *ConsignmentRepository) GetAll() []*pb.Consignment {
 // to give you a better idea.
 type service struct {
 	repo         Repository
-	vesselClient vesselProto.vesselServiceClient
+	vesselClient vesselProto.VesselServiceClient
 }
 
 // s.CreateConsignment - we created just one method on our service,
