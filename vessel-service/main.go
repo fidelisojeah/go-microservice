@@ -15,6 +15,7 @@ type Repository interface {
 	FindAvailable(*pb.Specification) (*pb.Vessel, error)
 }
 
+// VesselRepository class
 type VesselRepository struct {
 	vessels []*pb.Vessel
 }
@@ -50,7 +51,7 @@ func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, resp
 }
 func main() {
 	vessels := []*pb.Vessel{
-		&pb.vessel{Id: "vessel001", Name: "Boaty McBoatface", MaxWeight: 200000, Capacity: 500},
+		&pb.Vessel{Id: "vessel001", Name: "Boaty McBoatface", MaxWeight: 200000, Capacity: 500},
 	}
 	repo := &VesselRepository{vessels}
 
