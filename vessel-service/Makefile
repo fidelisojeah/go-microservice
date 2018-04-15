@@ -1,7 +1,6 @@
 build:
 	protoc -I. --go_out=plugins=micro:$(GOPATH)/src/github.com/fidelisojeah/go-microservice/vessel-service \
 		proto/vessel/vessel.proto
-	GOOS=linux GOARCH=amd64
 	docker build -t vessel-service .
 run:
 	docker run -p 50052:50051 \
