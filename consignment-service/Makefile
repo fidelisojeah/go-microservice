@@ -1,7 +1,6 @@
 build:
 	protoc -I. --go_out=plugins=micro:$(GOPATH)/src/github.com/fidelisojeah/go-microservice/consignment-service \
 		proto/consignment/consignment.proto
-	GOOS=linux GOARCH=amd64
 	docker build -t consignment-service .
 run:
 	docker run -p 50051:50051 \
