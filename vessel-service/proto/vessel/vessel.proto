@@ -23,7 +23,7 @@ message Specification{
 }
 
 message Response{
-  Vessel vessel = 1;
-  repeated Vessel vessels = 2;
-  bool created = 3;
+  bool created = 1;
+  Vessel vessel = 2;
+  repeated Vessel vessels = 3;
 }
