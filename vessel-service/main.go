@@ -40,6 +40,7 @@ func main() {
 	}
 
 	repo := &VesselRepository{session.Copy()}
+	createDummyData(repo)
 
 	srv := micro.NewService(
 		micro.Name("go.micro.srv.vessel"),
