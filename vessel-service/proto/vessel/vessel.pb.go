@@ -116,6 +116,7 @@ func (m *Specification) GetMaxWeight() int32 {
 }
 
 type Response struct {
+	Created bool      `protobuf:"varint,1,opt,name=created" json:"created,omitempty"`
 	Vessel  *Vessel   `protobuf:"bytes,1,opt,name=vessel" json:"vessel,omitempty"`
 	Vessels []*Vessel `protobuf:"bytes,2,rep,name=vessels" json:"vessels,omitempty"`
 }
