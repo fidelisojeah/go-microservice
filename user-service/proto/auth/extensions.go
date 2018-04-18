@@ -2,7 +2,7 @@ package auth
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/satori/go.uuid"
+	uuid "github.com/satori/go.uuid"
 )
 
 // BeforeCreate - hook to create hashed id
