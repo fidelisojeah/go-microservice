@@ -4,16 +4,10 @@ WORKDIR /go/src/github.com/fidelisojeah/go-microservice/consignment-service
 
 COPY . .
 
-# pull godep (go dependency manager)
-RUN go get -u github.com/golang/dep/cmd/dep
+RUN go get
 
-# Create a dep project, and run `ensure`, which will pull in all
-# of the dependencies within this directory.
-RUN dep init && dep ensure
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo
 
-# Build the binary, with a few flags which will allow
-# us to run this binary in Alpine.
-RUN CGO_ENABLED=0 GOOS=linux go build -o consignment-service -a -installsuffix cgo main.go repository.go handler.go datastore.go
 
 # Here we're using a second FROM statement, which is strange,
 # but this tells Docker to start a new build process with this

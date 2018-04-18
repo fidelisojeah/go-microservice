@@ -1,8 +1,9 @@
 build:
-	protoc -I. --go_out=plugins=micro:$(GOPATH)/src/github.com/fidelisojeah/go-microservice/consignment-service \
+	protoc -I. --go_out=plugins=micro:. \
 		proto/consignment/consignment.proto
 	docker build -t consignment-service .
 run:
-	docker run -p 50051:50051 \
-		-e MICRO_SERVER_ADDRESS=:50051 \
+	docker run -d --net="host" \
+		-p 50052 \
+		-e MICRO_SERVER_ADDRESS=:50052 \
 		-e MICRO_REGISTRY=mdns consignment-service
