@@ -7,7 +7,7 @@ COPY . .
 RUN go get -u github.com/golang/dep/cmd/dep
 RUN dep init && dep ensure
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 
 
 # Here we're using a second FROM statement, which is strange,
@@ -25,6 +25,6 @@ WORKDIR /app
 # we pull the binary from the container named `builder`, within
 # this build context. This reaches into our previous image, finds
 # the binary we built, and pulls it into this container. Amazing!
-COPY --from=builder /go/src/github.com/fidelisojeah/go-microservice/consignment-service/consignment-service .
+COPY --from=builder /go/src/github.com/fidelisojeah/go-microservice/consignment-service .
 
 CMD [ "./consignment-service" ]

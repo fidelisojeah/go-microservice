@@ -2,12 +2,13 @@
 package main
 
 import (
-	"context"
 	"log"
 	"os"
 
-	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/user"
+	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 	micro "github.com/micro/go-micro"
+	microclient "github.com/micro/go-micro/client"
+	"golang.org/x/net/context"
 )
 
 func main() {

@@ -16,7 +16,7 @@ RUN apk --no-cache add ca-certificates
 
 RUN mkdir /app
 WORKDIR /app
-COPY --from=builder /go/src/github.com/fidelisojeah/go-microservice/user-cli/user-cli .
+COPY --from=builder /go/src/github.com/fidelisojeah/go-microservice/user-cli .
 
 ENTRYPOINT ["./user-cli"]
 
