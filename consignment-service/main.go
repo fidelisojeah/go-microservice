@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"log"
 
-	// Import the generated protobuf code
 	"os"
 
+	// Import the generated protobuf code
 	pb "github.com/fidelisojeah/go-microservice/consignment-service/proto/consignment"
-	userService "github.com/fidelisojeah/go-microservice/user-service/proto/user"
+	userService "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 	vesselProto "github.com/fidelisojeah/go-microservice/vessel-service/proto/vessel"
 	micro "github.com/micro/go-micro"
 	"github.com/micro/go-micro/client"
@@ -76,6 +76,9 @@ func main() {
 func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 
 	return func(ctx context.Context, req server.Request, response interface{}) error {
+		if os.Getenv("DISABLE_AUTH") == "true" {
+			return fn(ctx, req, response)
+		}
 		meta, ok := metadata.FromContext(ctx)
 		if !ok {
 			return errors.New("no auth meta-data found in request")

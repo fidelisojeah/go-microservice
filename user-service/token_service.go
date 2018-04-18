@@ -51,11 +51,11 @@ func (srv *TokenService) Decode(tokenString string) (*CustomClaims, error) {
 }
 
 // Encode - Encode jwt token
-func (srv *TokenService) Encode(user *userProto) (string, error) {
+func (srv *TokenService) Encode(user *userProto.User) (string, error) {
 
 	expireToken := time.Now().Add(time.Hour * 720).Unix()
 	// remove password from token
-	user.password = nil
+	user.Password = ""
 	// Create the Claims
 	claims := CustomClaims{
 		user,
