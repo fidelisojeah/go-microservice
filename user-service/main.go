@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"log"
 
-	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/user"
+	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 	"github.com/micro/go-micro"
 )
 
 func main() {
-	db, err := createConnection()
+	db, err := CreateConnection()
 	defer db.Close()
 
 	if err != nil {
@@ -26,7 +26,7 @@ func main() {
 
 	repo := &UserRepository{db}
 
-	// tokenService := &TokenService{repo}
+	tokenService := &TokenService{repo}
 
 	// Create a new service. Optionally include some options here.
 	srv := micro.NewService(

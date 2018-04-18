@@ -3,7 +3,7 @@
 package main
 
 import (
-	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/user"
+	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 	"github.com/jinzhu/gorm"
 )
 
@@ -13,6 +13,7 @@ type Repository interface {
 	Get(id string) (*userProto.User, error)
 	GetAll() ([]*userProto.User, error)
 	GetByEmailandPassword(user *userProto.User) (*userProto.User, error)
+	GetByEmail(emailAddress string) (*userProto.User, error)
 	// Validate (*userProto.Token)
 	// Close()
 }
@@ -28,11 +29,12 @@ func (repo *UserRepository) Create(user *userProto.User) error {
 	if err != nil {
 		return err
 	}
+	return nil
 }
 
 // Get - retrieves user from db Based on the id
 func (repo *UserRepository) Get(id string) (*userProto.User, error) {
-	var user *pb.User
+	var user *userProto.User
 	user.Id = id
 	err := repo.db.First(&user).Error
 	if err != nil {
@@ -43,7 +45,7 @@ func (repo *UserRepository) Get(id string) (*userProto.User, error) {
 
 // GetAll - retrieves all users from db
 func (repo *UserRepository) GetAll() ([]*userProto.User, error) {
-	var users []*pb.User
+	var users []*userProto.User
 	err := repo.db.Find(&users).Error
 	if err != nil {
 		return nil, err

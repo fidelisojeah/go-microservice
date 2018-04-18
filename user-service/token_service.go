@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/user"
+	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 )
 
 var (
@@ -28,7 +28,7 @@ type CustomClaims struct {
 // Authable methods
 type Authable interface {
 	Decode(token string) (*CustomClaims, error)
-	Encode(user *pb.User) (string, error)
+	Encode(user *userProto.User) (string, error)
 }
 
 // TokenService - class
