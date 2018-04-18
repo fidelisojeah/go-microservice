@@ -8,9 +8,7 @@ import (
 // BeforeCreate - hook to create hashed id
 func (model *User) BeforeCreate(scope *gorm.Scope) error {
 
-	newUUID, err := uuid.NewV4()
-	if err != nil {
-		return err
-	}
+	newUUID := uuid.Must(uuid.NewV4())
+
 	return scope.SetColumn("Id", newUUID.String())
 }
