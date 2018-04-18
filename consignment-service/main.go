@@ -10,6 +10,7 @@ import (
 	"os"
 
 	pb "github.com/fidelisojeah/go-microservice/consignment-service/proto/consignment"
+	userService "github.com/fidelisojeah/go-microservice/user-service/proto/user"
 	vesselProto "github.com/fidelisojeah/go-microservice/vessel-service/proto/vessel"
 	micro "github.com/micro/go-micro"
 	"github.com/micro/go-micro/client"

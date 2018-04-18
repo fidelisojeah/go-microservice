@@ -1,6 +1,6 @@
 build:
 	protoc -I. --go_out=plugins=micro:. \
-		proto/user/user.proto
+		proto/auth/auth.proto
 	docker build -t user-service .
 run:
 	docker run -d --net="host" \
