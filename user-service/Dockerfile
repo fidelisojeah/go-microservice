@@ -1,11 +1,14 @@
-FROM golang:1.9.0 as builder
+FROM golang:1.9.3 as builder
 
 WORKDIR /go/src/github.com/fidelisojeah/go-microservice/user-service
 
 COPY . .
 
-RUN go get -d -v ./...
-RUN go install -v ./...
+RUN go get -u github.com/golang/dep/cmd/dep
+
+RUN dep init && dep ensure
+
+RUN go get -u github.com/satori/go.uuid
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 
