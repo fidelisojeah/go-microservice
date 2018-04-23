@@ -6,7 +6,11 @@ COPY . .
 
 RUN go get -u github.com/golang/dep/cmd/dep
 
-RUN dep init && dep ensure
+RUN dep init
+RUN echo "[[override]]" >> Gopkg.toml
+RUN echo '  branch = "master"' >> Gopkg.toml
+RUN echo '  name = "github.com/satori/go.uuid"' >> Gopkg.toml
+RUN dep ensure
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 

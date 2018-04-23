@@ -6,4 +6,5 @@ run:
 	docker run -d --net="host" \
 		-p 50052 \
 		-e MICRO_SERVER_ADDRESS=:50052 \
+		-e DISABLE_AUTH=true \
 		-e MICRO_REGISTRY=mdns consignment-service

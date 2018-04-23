@@ -3,6 +3,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 
@@ -31,6 +32,7 @@ func (srv *service) Create(ctx context.Context, req *userProto.User, response *u
 		return fmt.Errorf("error creating User: %v", err)
 	}
 	response.User = req
+
 	return nil
 }
 func (srv *service) Get(ctx context.Context, req *userProto.User, response *userProto.Response) error {
@@ -78,8 +80,20 @@ func (srv *service) Auth(ctx context.Context, req *userProto.User, response *use
 	response.Token = token
 	return nil
 }
-func (srv *service) ValidateToken(ctx context.Context, req *userProto.Token, response *userProto.Token) error {
+func (srv *service) ValidateToken(ctx context.Context, req *userProto.Token, res *userProto.Token) error {
+
+	// Decode token
+	claims, err := srv.tokenService.Decode(req.Token)
+
+	if err != nil {
+		return err
+	}
+
+	if claims.User.Id == "" {
+		return errors.New("invalid user")
+	}
+
+	res.Valid = true
 
 	return nil
-
 }

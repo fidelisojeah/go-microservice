@@ -3,10 +3,11 @@ build:
 		proto/auth/auth.proto
 	docker build -t user-service .
 run:
-	docker run -d --net="host" \
+	docker run --net="host" \
 		-p 50051 \
 		-e DB_HOST=localhost \
 		-e DB_PASS=password \
 		-e DB_USER=postgres \
+		-e JSONSecret=JSONSECRETKEY12**20910 \
 		-e MICRO_SERVER_ADDRESS=:50051 \
 		-e MICRO_REGISTRY=mdns user-service
