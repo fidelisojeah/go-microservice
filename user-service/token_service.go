@@ -15,7 +15,7 @@ var (
 	// as a salt when hashing our tokens.
 	// Please make your own way more secure than this,
 	// use a randomly generated md5 hash or something.
-	key = []byte(os.Getenv("JSONsecret"))
+	key = []byte(os.Getenv("JSONSecret"))
 )
 
 // CustomClaims is our custom metadata, which will be hashed

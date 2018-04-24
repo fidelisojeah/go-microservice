@@ -16,11 +16,17 @@ import (
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/server"
+	k8s "github.com/micro/kubernetes/go/micro"
+
 	"golang.org/x/net/context"
 )
 
 const (
 	defaultHost = "localhost:27017"
+)
+
+var (
+	srv micro.Service
 )
 
 func main() {
@@ -45,15 +51,15 @@ func main() {
 	}
 
 	// Create a new service. Optionally include some options here.
-	srv := micro.NewService(
+	srv = k8s.NewService(
 
 		// This name must match the package name given in your protobuf definition
-		micro.Name("go.micro.srv.consignment"),
+		micro.Name("microservice.consignment"),
 		micro.Version("latest"),
 		// Our auth middleware
 		micro.WrapHandler(AuthWrapper),
 	)
-	vesselClient := vesselProto.NewVesselServiceClient("go.micro.srv.vessel", srv.Client())
+	vesselClient := vesselProto.NewVesselServiceClient("microservice.vessel", srv.Client())
 
 	// Init will parse the command line flags.
 	srv.Init()
@@ -89,7 +95,7 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		log.Println("Authenticating with token: ", token)
 
 		// Auth here
-		authClient := userService.NewUserServiceClient("auth", client.DefaultClient)
+		authClient := userService.NewUserServiceClient("microservice.auth", client.DefaultClient)
 
 		_, err := authClient.ValidateToken(context.Background(), &userService.Token{
 			Token: token,
