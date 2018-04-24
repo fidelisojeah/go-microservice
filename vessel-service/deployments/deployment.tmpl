@@ -26,7 +26,7 @@ spec:
           - name: DB_HOST
             value: "mongo:27017"
           - name: UPDATED_AT
-            value: "Tue, 24 Apr 2018"
+            value: {{ UPDATED_AT }}
           ports:
           - containerPort: 8080
             name: vessel-port

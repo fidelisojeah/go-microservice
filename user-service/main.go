@@ -8,6 +8,7 @@ import (
 
 	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 	"github.com/micro/go-micro"
+	k8s "github.com/micro/kubernetes/go/micro"
 )
 
 func main() {
@@ -29,10 +30,10 @@ func main() {
 	tokenService := &TokenService{repo}
 
 	// Create a new service. Optionally include some options here.
-	srv := micro.NewService(
+	srv := k8s.NewService(
 
 		// This name must match the package name given in your protobuf definition
-		micro.Name("auth"),
+		micro.Name("microservice.auth"),
 		micro.Version("latest"),
 	)
 	// Init will parse the command line flags.
