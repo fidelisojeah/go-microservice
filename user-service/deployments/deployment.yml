@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user
@@ -17,21 +17,21 @@ spec:
           image: eu.gcr.io/fidelis-microservice/user-service:latest
           imagePullPolicy: Always
           command: [
-            "./shippy-user-service",
+            "./user-service",
             "--selector=static",
             "--server_address=:8080"
           ]
           env:
           - name: DB_HOST
-            value: "postgres:5432"
+            value: "microservice-db:5432"
           - name: DB_NAME
-            value: "postgres"
+            value: "user_service"
           - name: DB_PASS
-            value: "password"
+            value: "userServicePassword"
           - name: DB_USER
-            value: "postgres"
+            value: "user_service"
           - name: UPDATED_AT
-            value: "{{ UPDATED_AT }}"
+            value: "Tue, 24 Apr 2018"
           ports:
           - containerPort: 8080
             name: user-port

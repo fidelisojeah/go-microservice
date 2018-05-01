@@ -7,7 +7,10 @@ import (
 
 // CreateSession creates the main session to our mongodb instance
 func CreateSession(host string) (*mgo.Session, error) {
-	session, err := mgo.Dial(host)
+	dialInfo, err := mgo.ParseURL("mongodb://" + host)
+	session, err := mgo.DialWithInfo(dialInfo)
+	dialInfo.Direct = true
+	dialInfo.FailFast = true
 	if err != nil {
 		return nil, err
 	}
