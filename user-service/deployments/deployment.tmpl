@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user
@@ -27,6 +27,8 @@ spec:
           - name: DB_NAME
             value: "user_service"
           - name: DB_PASS
+            value: "userServicePassword"
+          - name: DB_PASSWORD
             value: "userServicePassword"
           - name: DB_USER
             value: "user_service"

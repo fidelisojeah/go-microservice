@@ -44,7 +44,6 @@ func main() {
 
 	srv := k8s.NewService(
 		micro.Name("microservice.vessel"),
-		micro.Version("latest"),
 	)
 	srv.Init()
 

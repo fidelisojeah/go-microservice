@@ -55,7 +55,6 @@ func main() {
 
 		// This name must match the package name given in your protobuf definition
 		micro.Name("microservice.consignment"),
-		micro.Version("latest"),
 		// Our auth middleware
 		micro.WrapHandler(AuthWrapper),
 	)

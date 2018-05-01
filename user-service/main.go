@@ -5,9 +5,10 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
-	"github.com/micro/go-micro"
+	micro "github.com/micro/go-micro"
 	k8s "github.com/micro/kubernetes/go/micro"
 )
 
@@ -29,13 +30,20 @@ func main() {
 
 	tokenService := &TokenService{repo}
 
+	var srv micro.Service
 	// Create a new service. Optionally include some options here.
-	srv := k8s.NewService(
+	if os.Getenv("DEV") == "true" {
+		srv = micro.NewService(
+			// This name must match the package name given in your protobuf definition
+			micro.Name("microservice.auth"),
+		)
+	} else {
 
-		// This name must match the package name given in your protobuf definition
-		micro.Name("microservice.auth"),
-		micro.Version("latest"),
-	)
+		srv = k8s.NewService(
+			// This name must match the package name given in your protobuf definition
+			micro.Name("microservice.auth"),
+		)
+	}
 	// Init will parse the command line flags.
 	srv.Init()
 
