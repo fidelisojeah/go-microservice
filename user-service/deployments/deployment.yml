@@ -28,10 +28,12 @@ spec:
             value: "user_service"
           - name: DB_PASS
             value: "userServicePassword"
+          - name: DB_PASSWORD
+            value: "userServicePassword"
           - name: DB_USER
             value: "user_service"
           - name: UPDATED_AT
-            value: "Tue, 24 Apr 2018"
+            value: "Tue May  1 13:27:16 WAT 2018"
           ports:
           - containerPort: 8080
             name: user-port
