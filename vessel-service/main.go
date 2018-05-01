@@ -36,7 +36,6 @@ func main() {
 
 	defer session.Close()
 	if err != nil {
-
 		log.Panicf("Could not connect to datastore with host %s - %v", host, err)
 	}
 
