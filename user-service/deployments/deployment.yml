@@ -33,7 +33,7 @@ spec:
           - name: DB_USER
             value: "user_service"
           - name: UPDATED_AT
-            value: "Tue May  1 13:27:16 WAT 2018"
+            value: "Tue May  1 17:40:09 WAT 2018"
           ports:
           - containerPort: 8080
             name: user-port
