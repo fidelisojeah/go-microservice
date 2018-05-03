@@ -36,7 +36,7 @@ func (repo *UserRepository) Create(user *userProto.User) error {
 func (repo *UserRepository) Get(id string) (*userProto.User, error) {
 	var user *userProto.User
 	user.Id = id
-	err := repo.db.First(&user).Error
+	err := repo.db.Select("Name, Email, Company").First(&user).Error
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (repo *UserRepository) Get(id string) (*userProto.User, error) {
 // GetAll - retrieves all users from db
 func (repo *UserRepository) GetAll() ([]*userProto.User, error) {
 	var users []*userProto.User
-	err := repo.db.Find(&users).Error
+	err := repo.db.Select("Name, Email, Company").Find(&users).Error
 	if err != nil {
 		return nil, err
 	}
