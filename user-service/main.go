@@ -36,7 +36,7 @@ func main() {
 	if os.Getenv("DEV") == "true" {
 		srv = micro.NewService(
 			// This name must match the package name given in your protobuf definition
-			micro.Name("microservice.auth"),
+			micro.Name("auth"),
 		)
 	} else {
 
