@@ -9,6 +9,7 @@ import (
 
 	userProto "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 	micro "github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/registry/mdns"
 	k8s "github.com/micro/kubernetes/go/micro"
 )
 
@@ -48,7 +49,7 @@ func main() {
 	srv.Init()
 
 	// Register handler
-	userProto.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService})
+	userProto.RegisterAuthHandler(srv.Server(), &service{repo, tokenService})
 
 	// Run the server
 	if err := srv.Run(); err != nil {

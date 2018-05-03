@@ -13,7 +13,6 @@ import (
 	userService "github.com/fidelisojeah/go-microservice/user-service/proto/auth"
 	vesselProto "github.com/fidelisojeah/go-microservice/vessel-service/proto/vessel"
 	micro "github.com/micro/go-micro"
-	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/server"
 	k8s "github.com/micro/kubernetes/go/micro"
@@ -94,9 +93,9 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		log.Println("Authenticating with token: ", token)
 
 		// Auth here
-		authClient := userService.NewUserServiceClient("microservice.auth", client.DefaultClient)
+		authClient := userService.NewAuthClient("microservice.auth", srv.Client())
 
-		_, err := authClient.ValidateToken(context.Background(), &userService.Token{
+		_, err := authClient.ValidateToken(ctx, &userService.Token{
 			Token: token,
 		})
 		if err != nil {

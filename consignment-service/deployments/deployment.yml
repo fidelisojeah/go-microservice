@@ -26,7 +26,7 @@ spec:
           - name: DB_HOST
             value: "mongo:27017"
           - name: UPDATED_AT
-            value: "Fri 27 Apr 2018 15:13:13 WAT"
+            value: "Tue May  1 17:39:51 WAT 2018"
           ports:
           - containerPort: 8080
             name: cons-port
