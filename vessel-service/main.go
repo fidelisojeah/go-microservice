@@ -43,7 +43,7 @@ func main() {
 	createDummyData(repo)
 
 	srv := k8s.NewService(
-		micro.Name("microservice.vessel"),
+		micro.Name("vessel"),
 	)
 	srv.Init()
 

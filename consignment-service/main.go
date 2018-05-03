@@ -57,7 +57,7 @@ func main() {
 		// Our auth middleware
 		micro.WrapHandler(AuthWrapper),
 	)
-	vesselClient := vesselProto.NewVesselServiceClient("microservice.vessel", srv.Client())
+	vesselClient := vesselProto.NewVesselServiceClient("vessel", srv.Client())
 
 	// Init will parse the command line flags.
 	srv.Init()
