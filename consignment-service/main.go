@@ -48,15 +48,21 @@ func main() {
 		// here to add some context to the error.
 		log.Panicf("Could not connect to datastore with host %s - %v", host, err)
 	}
+	if os.Getenv("DEV") == "true" {
+		srv = micro.NewService(
+			micro.Name("microservice.consignment"),
+			micro.WrapHandler(AuthWrapper),
+		)
+	} else {
+		// Create a new service. Optionally include some options here.
+		srv = k8s.NewService(
 
-	// Create a new service. Optionally include some options here.
-	srv = k8s.NewService(
-
-		// This name must match the package name given in your protobuf definition
-		micro.Name("consignment"),
-		// Our auth middleware
-		micro.WrapHandler(AuthWrapper),
-	)
+			// This name must match the package name given in your protobuf definition
+			micro.Name("microservice.consignment"),
+			// Our auth middleware
+			micro.WrapHandler(AuthWrapper),
+		)
+	}
 	vesselClient := vesselProto.NewVesselServiceClient("microservice.vessel", srv.Client())
 
 	// Init will parse the command line flags.
@@ -93,7 +99,7 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		log.Println("Authenticating with token: ", token)
 
 		// Auth here
-		authClient := userService.NewAuthClient("auth", srv.Client())
+		authClient := userService.NewAuthClient("microservice.auth", srv.Client())
 
 		_, err := authClient.ValidateToken(ctx, &userService.Token{
 			Token: token,

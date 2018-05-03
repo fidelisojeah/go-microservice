@@ -8,6 +8,7 @@ import (
 
 	vesselProto "github.com/fidelisojeah/go-microservice/vessel-service/proto/vessel"
 	micro "github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/registry/mdns"
 	k8s "github.com/micro/kubernetes/go/micro"
 )
 
@@ -41,10 +42,18 @@ func main() {
 
 	repo := &VesselRepository{session.Copy()}
 	createDummyData(repo)
+	var srv micro.Service
 
-	srv := k8s.NewService(
-		micro.Name("microservice.vessel"),
-	)
+	if os.Getenv("DEV") == "true" {
+		srv = micro.NewService(
+			micro.Name("microservice.vessel"),
+		)
+	} else {
+
+		srv = k8s.NewService(
+			micro.Name("microservice.vessel"),
+		)
+	}
 	srv.Init()
 
 	vesselProto.RegisterVesselServiceHandler(srv.Server(), &service{session})
