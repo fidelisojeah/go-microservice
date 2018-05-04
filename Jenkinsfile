@@ -15,8 +15,6 @@ pipeline{
     stage('Build Dependencies'){
       steps{
         sh "ls"
-        echo '---docker service key---'
-        sh "go version"
         echo '---decoding service key---'
         echo "${env.GCLOUD_SERVICE_KEY} | base64 --decode -i > ~/gcloud-service-key.json"
         sh "gcloud auth activate-service-account --key-file ~/gcloud-service-key.json"

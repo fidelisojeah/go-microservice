@@ -1,6 +1,4 @@
 build:
-	protoc -I. --go_out=plugins=micro:. \
-		proto/consignment/consignment.proto
 	docker build -t eu.gcr.io/fidelis-microservice/consignment-service:latest .
 	gcloud docker -- push eu.gcr.io/fidelis-microservice/consignment-service:latest
 run:
