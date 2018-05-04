@@ -5,9 +5,14 @@ WORKDIR /go/src/github.com/fidelisojeah/go-microservice/vessel-service
 
 COPY . .
 
+RUN go get -u google.golang.org/grpc
+RUN go get -u github.com/golang/protobuf/protoc-gen-go
+
 RUN go get -u github.com/golang/dep/cmd/dep
 
 RUN dep init && dep ensure
+
+RUN protoc -I. --go_out=plugins=micro:. proto/vessel/vessel.proto
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 

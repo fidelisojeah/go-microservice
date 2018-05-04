@@ -1,6 +1,4 @@
 build:
-	protoc -I. --go_out=plugins=micro:. \
-		proto/vessel/vessel.proto
 		docker build -t eu.gcr.io/fidelis-microservice/vessel-service:latest .
 		gcloud docker -- push eu.gcr.io/fidelis-microservice/vessel-service:latest
 run:

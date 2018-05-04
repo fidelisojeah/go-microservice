@@ -1,6 +1,4 @@
 build:
-	protoc -I. --go_out=plugins=micro:. \
-		proto/auth/auth.proto
 	docker build -t eu.gcr.io/fidelis-microservice/user-service:latest .
 	gcloud docker -- push eu.gcr.io/fidelis-microservice/user-service:latest
 
