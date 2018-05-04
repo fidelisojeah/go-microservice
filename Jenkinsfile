@@ -2,6 +2,7 @@ pipeline{
   agent{
     docker{
       image 'eu.gcr.io/fidelis-microservice/gcdeploy:latest'
+      args '-u root:root'
     }
   }
   environment{
