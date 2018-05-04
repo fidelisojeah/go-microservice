@@ -14,8 +14,8 @@ pipeline{
     stage('Build Dependencies'){
       steps{
         echo '---decoding service key---'
-        echo "${env.GCLOUD_SERVICE_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json"
-        sh "gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json"
+        echo "${env.GCLOUD_SERVICE_KEY} | base64 --decode -i > ~/gcloud-service-key.json"
+        sh "gcloud auth activate-service-account --key-file ~/gcloud-service-key.json"
         sh "gcloud config set project ${env.GCLOUD_PROJECT_NAME}"
         sh "gcloud --quiet config set container/cluster ${env.GCLOUD_CLUSTER_NAME}"
         sh "gcloud config set compute/zone ${env.CLOUDSDK_COMPUTE_ZONE}"
