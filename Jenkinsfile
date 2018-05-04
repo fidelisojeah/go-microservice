@@ -15,8 +15,7 @@ pipeline{
     stage('Build Dependencies'){
       steps{
         sh "touch ~/gcloud-service-key.json"
-        echo "${env.GCLOUD_SERVICE_KEY} | base64 --decode >> ~/gcloud-service-key.json"
-        sh "ls ~"
+        sh "echo ${env.GCLOUD_SERVICE_KEY} | base64 --decode >> ~/gcloud-service-key.json"
         echo '---decoding service key---'
         sh "cat ~/gcloud-service-key.json"
         echo '---decoded service key---'
