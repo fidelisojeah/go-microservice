@@ -16,9 +16,7 @@ pipeline{
       steps{
         sh "touch ~/gcloud-service-key.json"
         sh "echo ${env.GCLOUD_SERVICE_KEY} | base64 --decode >> ~/gcloud-service-key.json"
-        echo '---decoding service key---'
-        sh "cat ~/gcloud-service-key.json"
-        echo '---decoded service key---'
+        echo '---decoding service key--'
         sh "gcloud auth activate-service-account --key-file ~/gcloud-service-key.json"
         sh "gcloud config set project ${env.GCLOUD_PROJECT_NAME}"
         sh "gcloud --quiet config set container/cluster ${env.GCLOUD_CLUSTER_NAME}"
@@ -27,9 +25,9 @@ pipeline{
         echo 'credentials set'
       }
     }
-    // stage('Build Changes'){
+    stage('Build Changes'){
 
-    // }
+    }
     // stage('Deploy Changes')
   }
 }
