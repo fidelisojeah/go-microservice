@@ -24,10 +24,9 @@ pipeline{
         sh "gcloud config set compute/zone ${env.CLOUDSDK_COMPUTE_ZONE}"
         sh "gcloud --quiet container clusters get-credentials ${env.GCLOUD_CLUSTER_NAME}"
         echo 'credentials set'
-        script{
-          env.LAST_COMMIT=$(git log --name-status HEAD^..HEAD --pretty=oneline | awk 'FNR==1 {print $1}')
-          env.PREV_MERGE_COMMIT=$(git rev-list --min-parents=2 --max-count=2 HEAD | awk 'FNR==2')
-          env.CHANGED_FOLDERS=$(git diff --name-only ${env.PREV_MERGE_COMMIT} ${env.LAST_COMMIT} | grep / | awk 'BEGIN {FS="/"} {print $1}' | uniq)
+          sh "export env.LAST_COMMIT=$(git log --name-status HEAD^..HEAD --pretty=oneline | awk 'FNR==1 {print $1}')"
+          sh "export env.PREV_MERGE_COMMIT=$(git rev-list --min-parents=2 --max-count=2 HEAD | awk 'FNR==2')"
+          sh "export env.CHANGED_FOLDERS=$(git diff --name-only ${env.PREV_MERGE_COMMIT} ${env.LAST_COMMIT} | grep / | awk 'BEGIN {FS="/"} {print $1}' | uniq)"
         }
       }
     }
