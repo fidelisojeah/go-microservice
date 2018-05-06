@@ -11,9 +11,9 @@ pipeline{
     CLOUDSDK_COMPUTE_ZONE = 'us-central1-a'
     GCLOUD_SERVICE_KEY = credentials('GCLOUD_SERVICE_KEY')
     GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-    LAST_COMMIT = sh(returnStdout: true, script: "git log --name-status HEAD^..HEAD --pretty=oneline | awk 'FNR==1 {print $1}'").trim()
+    LAST_COMMIT = sh(returnStdout: true, script: "git log --name-status HEAD^..HEAD --pretty=oneline | awk 'FNR==1 {print \$1}'").trim()
     PREV_MERGE_COMMIT = sh(returnStdout: true, script: "git rev-list --min-parents=2 --max-count=2 HEAD | awk 'FNR==2'").trim()
-    CHANGED_FOLDERS = sh(returnStdout: true, script: "git diff --name-only $PREV_MERGE_COMMIT ^LAST_COMMIT | grep / | awk 'BEGIN {FS="/"} {print $1}' | uniq").trim()
+    CHANGED_FOLDERS = sh(returnStdout: true, script: "git diff --name-only $PREV_MERGE_COMMIT ^LAST_COMMIT | grep / | awk 'BEGIN {FS="/"} {print \$1}' | uniq").trim()
 
   }
   stages{
