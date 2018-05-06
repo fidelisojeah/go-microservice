@@ -12,8 +12,8 @@ pipeline{
     GCLOUD_SERVICE_KEY = credentials('GCLOUD_SERVICE_KEY')
     GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
     LAST_COMMIT = sh(returnStdout: true, script: "git log --name-status HEAD^..HEAD --pretty=oneline | awk 'FNR==1 {print \$1}'")
-    PREV_MERGE_COMMIT = sh(returnStdout: true, script: "git rev-list --min-parents=2 --max-count=2 HEAD | awk 'FNR==2'")
-    CHANGED_FOLDERS = sh(returnStdout: true, script: "git diff --name-only $PREV_MERGE_COMMIT ^LAST_COMMIT | grep / | awk 'BEGIN {FS="/"} {print \$1}' | uniq")
+    // PREV_MERGE_COMMIT = sh(returnStdout: true, script: "git rev-list --min-parents=2 --max-count=2 HEAD | awk 'FNR==2'")
+    // CHANGED_FOLDERS = sh(returnStdout: true, script: "git diff --name-only $PREV_MERGE_COMMIT ^LAST_COMMIT | grep / | awk 'BEGIN {FS="/"} {print \$1}' | uniq")
 
   }
   stages{
@@ -41,7 +41,7 @@ pipeline{
         echo "Checking out commit:${env.GIT_COMMIT}"
         checkout scm
         sh 'ls'
-        echo "Changed folders: ${env.CHANGED_FOLDERS}"
+        // echo "Changed folders: ${env.CHANGED_FOLDERS}"
       }
     }
     // stage('Deploy Changes'){
